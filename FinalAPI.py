@@ -27,7 +27,7 @@ def preprocess_data(data):
 
     return df
 
-@app.route('/', methods=['POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
     try:
         
