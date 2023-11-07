@@ -28,10 +28,10 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -r requirements.txt --target="venv/lib/python3.11/site-packages"
-
+        run: pip install -r requirements.txt
+        
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
-      
+
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
 
@@ -65,13 +65,14 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_869A3B8781C347D3A02028EE2C94DAE1 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CC3761D0EFF04D31AF0E35EA19037472 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DDA5958F870F4374A200C2934DE1E030 }}
-              
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_725250708A7E41EC9532B4D3181088CD }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E8DAA4F62B6B4A34814AC91DC630E891 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_524474D0F991451A97543C51B4354D7E }}
+
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
           app-name: 'chris-py'
+          slot-name: 'Production'
           
