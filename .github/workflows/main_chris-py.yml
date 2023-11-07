@@ -68,16 +68,6 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_869A3B8781C347D3A02028EE2C94DAE1 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CC3761D0EFF04D31AF0E35EA19037472 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DDA5958F870F4374A200C2934DE1E030 }}
-
-      - name: Configure deployment and runtime settings on the webapp
-        run: |
-          az configure --defaults ${{ env.RESOURCE_GROUP }}
-          az webapp config appsettings --name chris-py --settings \
-              SCM_DO_BUILD_DURING_DEPLOYMENT=true \
-              FLASK_ENV=production
-
-          az webapp config set --name ${{ env.WEBAPP_NAME }} \
-              --startup-file "gunicorn --bind=0.0.0.0 --timeout 600 FinalAPI:app"
               
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
